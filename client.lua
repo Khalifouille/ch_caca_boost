@@ -15,7 +15,6 @@ RegisterCommand("sevider", function()
     while not HasAnimDictLoaded("missfbi3ig_0") do Wait(10) end
 
     TaskPlayAnim(playerPed, "missfbi3ig_0", "shit_loop_trev", 8.0, -8, -1, 1, 0, false, false, false)
-
     FreezeEntityPosition(playerPed, true)
     SetPlayerControl(PlayerId(), false, 0)
 
@@ -31,9 +30,10 @@ RegisterCommand("sevider", function()
     SetPlayerControl(PlayerId(), true, 0)
 
     isBoosted = true
-    RequestAnimSet("move_m@quick")
-    while not HasAnimSetLoaded("move_m@quick") do Wait(10) end
-    SetPedMovementClipset(playerPed, "move_m@quick", 5.0)
+    local playerId = PlayerId()
+
+    SetRunSprintMultiplierForPlayer(playerId, 1.49) 
+    SetPedMoveRateOverride(playerPed, 1.49)
 
     TriggerEvent("chat:addMessage", {
         color = {0, 255, 0},
@@ -42,7 +42,8 @@ RegisterCommand("sevider", function()
 
     Wait(5 * 60000)
 
-    ResetPedMovementClipset(playerPed, 1.0)
+    SetRunSprintMultiplierForPlayer(playerId, 1.0)
+    SetPedMoveRateOverride(playerPed, 1.0)
     isBoosted = false
 
     TriggerEvent("chat:addMessage", {
